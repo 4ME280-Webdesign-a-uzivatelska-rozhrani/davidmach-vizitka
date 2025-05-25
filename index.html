@@ -3,56 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jan Novák – Osobní vizitka</title>
+  <title>Jan Novák – Vizitka</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f4f4;
-      color: #222;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #e9ecef;
+      margin: 0;
       padding: 2em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
     .card {
-      background: #fff;
-      max-width: 400px;
-      margin: 2em auto;
-      padding: 2em;
-      border-radius: 10px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      background: #ffffff;
+      padding: 2em 2.5em;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
     }
 
     h1 {
-      margin-top: 0;
+      margin: 0 0 0.5em;
       font-size: 1.8em;
-      color: #007acc;
+      color: #1a1a1a;
     }
 
-    p {
-      margin: 0.5em 0;
+    .info {
+      margin: 1em 0;
+      font-size: 1em;
+      color: #444;
     }
 
-    .label {
-      font-weight: bold;
-      color: #666;
-    }
-
-    a {
+    .info a {
       color: #007acc;
       text-decoration: none;
     }
 
-    a:hover {
+    .info a:hover {
       text-decoration: underline;
+    }
+
+    .divider {
+      height: 1px;
+      background-color: #ddd;
+      margin: 1.5em 0;
     }
   </style>
 </head>
 <body>
   <div class="card">
     <h1>Jan Novák</h1>
-    <p><span class="label">A-číslo:</span> A12345678</p>
-    <p><span class="label">Studijní obor:</span> Webdesign a uživatelská rozhraní</p>
-    <p><span class="label">E-mail:</span> jan.novak123@students.example.com</p>
-    <p><span class="label">Web:</span> <a href="#">https://moje-vizitka.cz</a></p>
+    <div class="divider"></div>
+    <div class="info">
+      📞 <a href="tel:+420777123456">+420 777 123 456</a><br />
+      ✉️ <a href="mailto:jan.novak@example.com">jan.novak@example.com</a><br />
+      🌐 <a href="https://www.jannovak.cz" target="_blank">www.jannovak.cz</a>
+    </div>
   </div>
 </body>
 </html>
+
