@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jan Novák - Senior Business Consultant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Business Card Styles */
+        .card-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .business-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            width: 384px;
+            height: 224px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin-bottom: 32px;
+        }
+
+        .business-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.35);
+        }
+
+        .card-accent {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 128px;
+            height: 128px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            transform: translate(64px, -64px);
+            opacity: 0.1;
+        }
+
+        .card-content {
+            padding: 32px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            z-index: 10;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .card-dot {
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+
+        .card-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1f2937;
+            letter-spacing: -0.025em;
+        }
+
+        .card-title {
+            color: #2563eb;
+            font-weight: 500;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            color: #6b7280;
+            transition: color 0.2s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .contact-item:hover {
+            color: #2563eb;
+        }
+
+        .contact-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 12px;
+            color: #3b82f6;
+        }
+
+        .card-bottom-accent {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+        }
+
+        .website-btn {
+            display: inline-block;
+            background: #1f2937;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.2s ease;
+        }
+
+        .website-btn:hover {
+            background: #374151;
+        }
+
+        /* Website Styles */
+        .website {
+            display: none;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+        }
+
+        .website.active {
+            display: block;
+        }
+
+        /* Navigation */
+        .nav {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .nav-container {
+            max-width: 1152px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 16px;
+        }
+
+        .nav-link {
+            padding: 8px 16px;
+            color: #6b7280;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: #1f2937;
+            color: white;
+        }
+
+        .nav-link.outline {
+            border: 1px solid #d1d5db;
+            background: transparent;
+            color: #374151;
+        }
+
+        .nav-link.outline:hover {
+            background: #f9fafb;
+            color: #1f2937;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 1152px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 24px;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: #2563eb;
+            font-weight: 500;
+            margin-bottom: 32px;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: #6b7280;
+            max-width: 768px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #1f2937;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #374151;
+        }
+
+        .btn-outline {
+            border: 1px solid #d1d5db;
+            color: #374151;
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: #f9fafb;
+        }
+
+        .btn-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 64px 0;
+            background: white;
+        }
+
+        .services-container {
+            max-width: 1152px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .services h2 {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            color: #1f2937;
+            margin-bottom: 48px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .service-header {
+            padding: 24px 24px 0;
+        }
+
+        .service-icon {
+            width: 32px;
+            height: 32px;
+            color: #2563eb;
+            margin-bottom: 16px;
+        }
+
+        .service-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .service-description {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .service-content {
+            padding: 0 24px 24px;
+        }
+
+        .service-content p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 64px 0;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+        }
+
+        .contact-container {
+            max-width: 768px;
+            margin: 0 auto;
+            padding: 0 24px;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 32px;
+        }
+
+        .contact-description {
+            font-size: 18px;
+            color: #bfdbfe;
+            margin-bottom: 40px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-item-icon {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 16px;
+        }
+
+        .contact-item h3 {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1f2937;
+            color: white;
+            padding: 32px 0;
+            text-align: center;
+        }
+
+        .footer-container {
+            max-width: 1152px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .business-card {
+                width: 320px;
+                height: 200px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Business Card Section -->
+    <div id="card" class="card-container">
+        <div class="business-card">
+            <div class="card-accent"></div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header">
+                        <div class="card-dot"></div>
+                        <h1 class="card-name">Jan Novák</h1>
+                    </div>
+                    <p class="card-title">Senior Business Consultant</p>
+                </div>
+                
+                <div class="card-contact">
+                    <div class="contact-item">
+                        <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        <span>+420 777 123 456</span>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 7.89a2 2 0 002.83 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <span>jan.novak@consulting.cz</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-bottom-accent"></div>
+        </div>
+        
+        <a href="#" class="website-btn" onclick="showWebsite()">Zobrazit web</a>
+    </div>
+
+    <!-- Website Section -->
+    <div id="website" class="website">
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="nav-container">
+                <h1 class="nav-logo">Jan Novák</h1>
+                <div class="nav-menu">
+                    <a href="#" class="nav-link" onclick="showCard()">Vizitka</a>
+                    <a href="#contact" class="nav-link outline">Kontakt</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-container">
+                <h1>Jan Novák</h1>
+                <p class="hero-subtitle">Senior Business Consultant</p>
+                <p class="hero-description">
+                    Pomáhám podnikům růst a dosahovat jejich cílů prostřednictvím strategického poradenství 
+                    a inovativních řešení. S více než 10 lety zkušeností v obchodním poradenství.
+                </p>
+                <div class="hero-buttons">
+                    <a href="mailto:jan.novak@consulting.cz" class="btn btn-primary">
+                        <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 7.89a2 2 0 002.83 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        Napište mi
+                    </a>
+                    <a href="tel:+420777123456" class="btn btn-outline">
+                        <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        Zavolejte
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services">
+            <div class="services-container">
+                <h2>Moje služby</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-header">
+                            <svg class="service-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0H8m8 0v2a2 2 0 01-2 2H10a2 2 0 01-2-2V6m8 0H8m0 0H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2h-4"/>
+                            </svg>
+                            <h3 class="service-title">Strategické poradenství</h3>
+                            <p class="service-description">
+                                Rozvoj dlouhodobých strategií pro růst vašeho podnikání
+                            </p>
+                        </div>
+                        <div class="service-content">
+                            <p>
+                                Analýza trhu, konkurence a příležitostí pro optimalizaci obchodních procesů.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-header">
+                            <svg class="service-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                            <h3 class="service-title">Týmové vedení</h3>
+                            <p class="service-description">
+                                Budování efektivních týmů a zlepšování komunikace
+                            </p>
+                        </div>
+                        <div class="service-content">
+                            <p>
+                                Školení managementu a implementace systémů pro lepší výkonnost týmu.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-header">
+                            <svg class="service-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                            </svg>
+                            <h3 class="service-title">Optimalizace procesů</h3>
+                            <p class="service-description">
+                                Zefektivnění obchodních procesů a snížení nákladů
+                            </p>
+                        </div>
+                        <div class="service-content">
+                            <p>
+                                Identifikace problémových oblastí a návrh řešení pro zvýšení produktivity.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="contact-container">
+                <h2>Pojďme spolupracovat</h2>
+                <p class="contact-description">
+                    Mám zájem o vaše výzvy a rád bych vám pomohl najít nejlepší řešení.
+                </p>
+                
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <svg class="contact-item-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        <h3>Telefon</h3>
+                        <p>+420 777 123 456</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <svg class="contact-item-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M3 8l7.89 7.89a2 2 0 002.83 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <h3>Email</h3>
+                        <p>jan.novak@consulting.cz</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <svg class="contact-item-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <h3>Lokace</h3>
+                        <p>Praha, Česká republika</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <p>&copy; 2024 Jan Novák - Senior Business Consultant. Všechna práva vyhrazena.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function showWebsite() {
+            document.getElementById('card').style.display = 'none';
+            document.getElementById('website').classList.add('active');
+        }
+
+        function showCard() {
+            document.getElementById('website').classList.remove('active');
+            document.getElementById('card').style.display = 'flex';
+        }
+
+        // Smooth scrolling for contact link
+        document.querySelector('a[href="#contact"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('contact').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
